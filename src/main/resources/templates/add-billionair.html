@@ -22,11 +22,6 @@
                         <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></span>
                     </div>
                     <div class="form-group col-md-8">
-                        <label for="rank" class="col-form-label">Rank</label>
-                        <input type="text" th:field="*{rank}" class="form-control" id="rank" placeholder="Rank">
-                        <span th:if="${#fields.hasErrors('rank')}" th:errors="*{rank}" class="text-danger"></span>
-                    </div>
-                    <div class="form-group col-md-8">
                         <label for="networth" class="col-form-label">NetWorth</label>
                         <input type="text" th:field="*{networth}" class="form-control" id="networth" placeholder="networth">
                         <span th:if="${#fields.hasErrors('networth')}" th:errors="*{networth}" class="text-danger"></span>

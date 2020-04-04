@@ -14,8 +14,6 @@ public class Billionair{
     private long id;
     @NotBlank(message = "Name is mandatory")
     private String name;
-    @NotNull(message = "rank can't be null")
-    private int rank;
     @NotNull(message = "networth can't be null ")
     private Double networth;
     @NotBlank(message = "companies cant be blank")
@@ -35,14 +33,6 @@ public class Billionair{
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public int getRank() {
-        return rank;
-    }
-
-    public void setRank(int rank) {
-        this.rank = rank;
     }
 
     public Double getNetworth() {
@@ -66,7 +56,6 @@ public class Billionair{
         return "Billionairs{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", rank=" + rank +
                 ", netWorth=" + networth +
                 ", companiesOwned='" + companiesowned + '\'' +
                 '}';

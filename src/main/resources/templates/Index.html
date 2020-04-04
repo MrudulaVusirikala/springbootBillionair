@@ -20,7 +20,6 @@
                     <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Rank</th>
                         <th>NetWorth</th>
                         <th>CompaniesOwned</th>
                         <th></th>
@@ -30,7 +29,6 @@
                     <tbody>
                     <tr th:each="billionair : ${billionairs}">
                         <td th:text="${billionair.name}"></td>
-                        <td th:text="${billionair.Rank}"></td>
                         <td th:text="${billionair.networth}"></td>
                         <td th:text="${billionair.companiesowned}"></td>
                         <td><a th:href="@{/updateBillionair/{id}(id=${billionair.id})}" class="btn btn-primary"><i class="fas fa-user-edit ml-2"></i></a></td>

@@ -34,7 +34,6 @@ public class BillionairService {
        //     return  billionairRepository.findById(id)
        // }
        return billionairRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid Billionair Id:" + id));
-
     }
 
 }

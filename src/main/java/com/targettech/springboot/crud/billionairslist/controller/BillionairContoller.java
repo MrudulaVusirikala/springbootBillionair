@@ -24,7 +24,6 @@ public class BillionairContoller {
     @GetMapping("/")
     public String showBillionair(Model model){
         return loadBillionair(model);
-
     }
 
     @GetMapping("/addBillionair" )
@@ -35,10 +34,8 @@ public class BillionairContoller {
         if (result.hasErrors()) {
             return "add-billionair";
         }
-
        billionairService.saveBillionair(billionair);
         return loadBillionair(model);
-
     }
 
     @GetMapping("/updateBillionair/{id}")
@@ -56,8 +53,6 @@ public class BillionairContoller {
         }
         billionairService.saveBillionair(billionair);
         return loadBillionair(model);
-
-
     }
 
     @GetMapping("/deleteBillionair/{id}")
@@ -65,9 +60,8 @@ public class BillionairContoller {
         Billionair billionair = billionairService.findBillionairById(id);
         billionairService.deleteBillionair(billionair);
         return loadBillionair(model);
-
-
     }
+
     public String loadBillionair(Model model){
         model.addAttribute("billionairs", billionairService.sortedOutBillionairList());
         return "index";

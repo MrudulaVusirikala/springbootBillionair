@@ -1,9 +1,8 @@
 package com.targettech.springboot.crud.billionairslist.controller;
 
 import com.targettech.springboot.crud.billionairslist.entities.Billionair;
-import com.targettech.springboot.crud.billionairslist.repositories.BillionairRepository;
+import com.targettech.springboot.crud.billionairslist.service.BillionairService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,17 +14,17 @@ import javax.validation.Valid;
 @Controller
 public class BillionairContoller {
 
-    private final BillionairRepository billionairRepository;
+    private final BillionairService billionairService;
 
     @Autowired
-    public BillionairContoller(BillionairRepository billionairRepository) {
-        this.billionairRepository = billionairRepository;
+    public BillionairContoller(BillionairService billionairService) {
+        this.billionairService = billionairService;
     }
 
     @GetMapping("/")
     public String showBillionair(Model model){
-        model.addAttribute("billionairs", billionairRepository.findAll(Sort.by(Sort.Direction.DESC,"networth")));
-        return "index";
+        return loadBillionair(model);
+
     }
 
     @GetMapping("/addBillionair" )
@@ -37,14 +36,14 @@ public class BillionairContoller {
             return "add-billionair";
         }
 
-        billionairRepository.save(billionair);
-        model.addAttribute("billionairs", billionairRepository.findAll(Sort.by(Sort.Direction.DESC,"networth")));
-        return "index";
+       billionairService.saveBillionair(billionair);
+        return loadBillionair(model);
+
     }
 
     @GetMapping("/updateBillionair/{id}")
     public String showUpdateBillionairForm(@PathVariable("id") long id, Model model) {
-        Billionair billionair = billionairRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid Billionair Id:" + id));
+        Billionair billionair =billionairService.findBillionairById(id);
         model.addAttribute("billionair", billionair);
         return "update-billionair";
     }
@@ -55,16 +54,22 @@ public class BillionairContoller {
             billionair.setId(id);
             return "update-billionair";
         }
-        billionairRepository.save(billionair);
-        model.addAttribute("billionairs", billionairRepository.findAll(Sort.by(Sort.Direction.DESC,"networth")));
-        return "index";
+        billionairService.saveBillionair(billionair);
+        return loadBillionair(model);
+
+
     }
 
     @GetMapping("/deleteBillionair/{id}")
     public String deleteBillionair(@PathVariable("id") long id, Model model) {
-        Billionair billionair = billionairRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid billionair Id:" + id));
-        billionairRepository.delete(billionair);
-        model.addAttribute("billionairs", billionairRepository.findAll(Sort.by(Sort.Direction.DESC,"networth")));
+        Billionair billionair = billionairService.findBillionairById(id);
+        billionairService.deleteBillionair(billionair);
+        return loadBillionair(model);
+
+
+    }
+    public String loadBillionair(Model model){
+        model.addAttribute("billionairs", billionairService.sortedOutBillionairList());
         return "index";
     }
 }

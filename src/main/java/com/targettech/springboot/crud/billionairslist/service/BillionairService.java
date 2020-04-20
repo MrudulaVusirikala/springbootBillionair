@@ -5,10 +5,10 @@ import com.targettech.springboot.crud.billionairslist.repositories.BillionairRep
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class BillionairService {
 
@@ -30,10 +30,11 @@ public class BillionairService {
         billionairRepository.delete(billionair);
     }
     public  Billionair findBillionairById(long id) {
-       // if(billionairRepository.existsById(id)){
-       //     return  billionairRepository.findById(id)
-       // }
+
        return billionairRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid Billionair Id:" + id));
     }
+    // public Optional<Billionair> getFile(String fileId) {
+    //    return billionairRepository.findById(fileId);
+    // }
 
 }
